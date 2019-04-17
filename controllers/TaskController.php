@@ -20,9 +20,11 @@ class TaskController extends Controller
       'author' => 1,
       'responsable' => 200
     ]);
-//    var_dump($model->validate());
-//    var_dump($model->getErrors());
-//    var_dump($model->toArray()); exit;
+    // проверка url:   http://yii2.uni.loc/?r=task/
+    var_dump($model->validate());
+    var_dump($model->getErrors());
+    var_dump($model->toArray()); exit;
+
   }
 //  public $layout = false;
   public function actionHello() {

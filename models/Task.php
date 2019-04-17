@@ -9,6 +9,7 @@
 namespace app\models;
 
 
+use app\components\validators\TaskValidator;
 use yii\base\Model;
 
 class Task extends Model
@@ -23,7 +24,7 @@ class Task extends Model
     return [
       [['title','description'], 'required'],
       ['title', 'string', 'max'=>10],
-      ['status', 'statusValidate']
+      ['status', TaskValidator::class]
     ];
   }
 
