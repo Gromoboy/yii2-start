@@ -19,6 +19,6 @@ class DbController extends Controller
     )->queryAll();
 
     var_dump($result);
-    exit;
+
   }
 }
