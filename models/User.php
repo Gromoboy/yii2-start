@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use app\models\tables\Users;
+
 class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 {
     public $id;
@@ -33,12 +35,10 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findIdentity($id)
     {
-        $response = \Yii::$app->db->createCommand("
-           SELECT * FROM frutella.users WHERE id = :id
-        ")->bindValue(':id', $id)
-          ->queryOne();
 
-        return isset($response) ? new static($response) : null;
+        $user = Users::findOne($id);
+
+        return isset($user) ? new static($user) : null;
     }
 
     /**
@@ -46,17 +46,11 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        $response = \Yii::$app->db->createCommand("
-             SELECT * FROM frutella.users
-        ")->queryAll();
 
-        foreach ($response as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
+        $res = Users::findOne(['accessToken'=> $token]);
+        $isFinded = isset($res);
 
-        return null;
+        return $isFinded ? new static($res) : null;
     }
 
     /**
@@ -67,17 +61,17 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-        $response = \Yii::$app->db->createCommand("
-           SELECT * FROM frutella.users
-        ")->queryAll();
-
-        foreach ($response as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+//        $response = \Yii::$app->db->createCommand("
+//           SELECT * FROM frutella.users
+//        ")->queryAll();
+//
+//        foreach ($response as $user) {
+//            if (strcasecmp($user['username'], $username) === 0) {
+//                return new static($user);
+//            }
+//        }
+        $res = Users::findOne(['username' => $username]);
+        return isset($res) ? new static($res) : null;
     }
 
     /**

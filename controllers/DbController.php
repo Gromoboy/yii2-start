@@ -10,6 +10,7 @@ namespace app\controllers;
 
 
 use yii\web\Controller;
+use app\models\tables;
 
 class DbController extends Controller
 {
@@ -20,5 +21,10 @@ class DbController extends Controller
 
     var_dump($result);
 
+  }
+
+  public function actionSecond() {
+    var_dump(tables\Task::findOne(2)->name);
+    exit;
   }
 }
