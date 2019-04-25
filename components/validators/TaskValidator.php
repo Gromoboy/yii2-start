@@ -10,7 +10,7 @@ use yii\validators\Validator;
 class TaskValidator extends Validator
 {
   public function validateAttribute($model, $attribute) {
-    if(!in_array($model->$attribute, ['in progress...', 'Closed'])) {
+    if(!in_array($model->$attribute, ['В работе', 'Закрыто'])) {
       $this->addError($model, $attribute, 'Wrong status');
     }
   }
