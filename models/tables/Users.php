@@ -33,8 +33,9 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password'], 'required'],
-            [['username', 'password', 'authKey', 'accessToken', 'email'], 'string', 'max' => 255],
+          [['username', 'password'], 'required'],
+          [['username', 'password', 'authKey', 'accessToken', 'email'], 'string', 'max' => 255],
+          [['email'], 'email'],
         ];
     }
 
@@ -44,12 +45,12 @@ class Users extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'username' => 'Username',
-            'password' => 'Password',
-            'authKey' => 'Auth Key',
-            'accessToken' => 'Access Token',
-            'email' => 'Email',
+          'id' => 'ID',
+          'username' => 'Имя пользователя',
+          'password' => 'Пароль',
+          'authKey' => 'Auth Key',
+          'accessToken' => 'Access Token',
+          'email' => 'Email',
         ];
     }
 
@@ -68,4 +69,10 @@ class Users extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Task::className(), ['responsable_id' => 'id']);
     }
+
+//    public function afterSave($insert, $changedAttributes) {
+//        parent::afterSave($insert, $changedAttributes);
+//
+//    }
 }
+
