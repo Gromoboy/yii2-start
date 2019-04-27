@@ -16,9 +16,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'creator_id')->textInput() ?>
+    <?= $form->field($model, 'creator_id')->dropDownList($usersList) ?>
 
-    <?= $form->field($model, 'responsable_id')->textInput() ?>
+    <?= $form->field($model, 'responsable_id')->dropDownList($usersList) ?>
 
     <?= $form->field($model, 'deadline')->textInput() ?>
 

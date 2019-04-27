@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\tables\Users;
 use Yii;
 use app\models\tables\Task;
 use app\models\TaskFilter;
@@ -69,9 +70,11 @@ class AdminTaskController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
+        $usersList = Users::getUsersList();
 
         return $this->render('create', [
             'model' => $model,
+            'usersList' => $usersList
         ]);
     }
 

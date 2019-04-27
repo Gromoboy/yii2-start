@@ -16,6 +16,8 @@ use Yii;
  *
  * @property Task[] $tasks
  * @property Task[] $tasks0
+ *
+ * @property Users $responsable
  */
 class Users extends \yii\db\ActiveRecord
 {
@@ -70,6 +72,12 @@ class Users extends \yii\db\ActiveRecord
         return $this->hasMany(Task::className(), ['responsable_id' => 'id']);
     }
 
+    public function getUsersList() {
+        return static::find()
+                        ->select(['username'])
+                        ->indexBy('id')
+                        ->column();
+    }
 //    public function afterSave($insert, $changedAttributes) {
 //        parent::afterSave($insert, $changedAttributes);
 //
