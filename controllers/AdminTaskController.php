@@ -6,6 +6,7 @@ use app\models\tables\Users;
 use Yii;
 use app\models\tables\Task;
 use app\models\TaskFilter;
+use yii\base\Event;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,6 +66,7 @@ class AdminTaskController extends Controller
      */
     public function actionCreate()
     {
+
         $model = new Task();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
