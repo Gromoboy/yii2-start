@@ -12,6 +12,11 @@ namespace app\controllers;
 use yii\web\Controller;
 use app\models\tables;
 
+/**
+ * Class DbController
+ * @package app\controllers
+ * database work examples, db component included in web.php
+ */
 class DbController extends Controller
 {
   public function actionIndex() {

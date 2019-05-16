@@ -18,7 +18,7 @@ class TaskFilter extends Task
     {
         return [
             [['id', 'creator_id', 'responsable_id', 'status_id'], 'integer'],
-            [['name', 'description', 'deadline'], 'safe'],
+            [['name', 'description', 'deadline'], 'safe'],//указание на безопасность аттрибутов без проверки
         ];
     }
 

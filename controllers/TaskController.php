@@ -31,7 +31,10 @@ class TaskController extends Controller
 //    var_dump($model->toArray()); exit;
 
     }
-
+    public function actionOne($id) {
+        $taskRecord = Task::findOne($id);
+        return $this->render('full', ['task'=>$taskRecord]);
+    }
 //  public $layout = false;
     public function actionHello()
     {
