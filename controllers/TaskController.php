@@ -8,7 +8,7 @@
 
 namespace app\controllers;
 
-use app\models\tables\Task;
+use app\models\tables\{Task, TaskStatuses, Users};
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
@@ -33,7 +33,14 @@ class TaskController extends Controller
     }
     public function actionOne($id) {
         $taskRecord = Task::findOne($id);
-        return $this->render('full', ['task'=>$taskRecord]);
+        return $this->render(
+            'full',
+            [
+                'task' => $taskRecord,
+                'usersList' => Users::getUsersList(),
+                'statusesList' => TaskStatuses::getList(),
+            ]
+        );
     }
 //  public $layout = false;
     public function actionHello()

@@ -3,6 +3,7 @@
 namespace app\models\tables;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "task".
@@ -74,5 +75,19 @@ class Task extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Users::className(), ['id' => 'responsable_id']);
     }
-    
+
+    public function getStatus()
+    {
+        return $this->hasOne(TaskStatuses::class, ['id' => 'status_id']);
+    }
+
+    public static function getList() {
+        return ArrayHelper::map(
+            static::find()
+            ->select(['id', 'name'])
+            ->asArray()
+            ->indexBy('id')
+            ->all(), 'id', 'name'
+        );
+    }
 }

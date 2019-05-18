@@ -59,7 +59,7 @@ class Users extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks()
+    public function getCreator()
     {
         return $this->hasMany(Task::className(), ['creator_id' => 'id']);
     }
@@ -67,12 +67,12 @@ class Users extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks0()
+    public function getResponsable()
     {
         return $this->hasMany(Task::className(), ['responsable_id' => 'id']);
     }
 
-    public function getUsersList() {
+    public static function getUsersList() {
         return static::find()
                         ->select(['username'])
                         ->indexBy('id')
