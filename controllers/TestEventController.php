@@ -11,7 +11,7 @@ class TestEventController extends Controller
         $model->on(Test::EVENT_RUN_STARTED, function(){
             echo "Обработчик старта<br>";
         });
-
+        $model->display();
         $model->run();
         exit;
     }

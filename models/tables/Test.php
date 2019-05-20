@@ -2,6 +2,7 @@
 
 namespace app\models\tables;
 
+use app\behaviors\MyBehavior;
 use Yii;
 
 /**
@@ -12,6 +13,20 @@ use Yii;
  */
 class Test extends \yii\db\ActiveRecord
 {
+    const EVENT_RUN_STARTED = 'event_run_started';
+    const EVENT_RUN_FINISHED = 'event_run_finished';
+
+    public function behaviors()
+    {
+        return [
+            'my' => [
+                'class' => MyBehavior::class,
+                'message' => 'changed greetings in conf from myBehaviors<br>',
+            ]
+        ];
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -41,8 +56,6 @@ class Test extends \yii\db\ActiveRecord
             'title' => 'Title',
         ];
     }
-    const EVENT_RUN_STARTED = 'event_run_started';
-    const EVENT_RUN_FINISHED = 'event_run_finished';
     /**
      * example for Events in ActiveRecord
      */

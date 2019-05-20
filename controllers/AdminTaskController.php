@@ -95,8 +95,10 @@ class AdminTaskController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $usersList = Users::getUsersList();
         return $this->render('update', [
             'model' => $model,
+            'usersList' => $usersList
         ]);
     }
 
