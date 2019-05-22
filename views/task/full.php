@@ -10,7 +10,7 @@ use yii\helpers\Html;
         <?= $form->field($task, 'name')->textInput(); ?>
         <div class="row">
             <div class="col-lg-4">
-                <?= $form->field($task, 'status')->dropDownList($statusesList) ?>
+                <?= $form->field($task, 'status_id')->dropDownList($statusesList) ?>
             </div>
             <div class="col-lg-4">
                 <?= $form->field($task, 'responsable_id')->dropDownList($usersList) ?>
