@@ -11,6 +11,7 @@ namespace app\controllers;
 use app\models\tables\{Task, TaskStatuses, Users};
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class TaskController extends Controller
 {
@@ -52,7 +53,16 @@ class TaskController extends Controller
             'content' => 'Привет из фреймворка Йии 2',
           ]
         );
-//    echo "Hello, world";
-//    exit;
+
+    }
+
+    public function actionSave($id) {
+        if (($taskRec = Task::findOne($id))=== null) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        if ($taskRec->load(\Yii::$app->request->post()) and $taskRec->save()) {
+            return $this->redirect(['full', 'id' => $taskRec->id]);
+        }
     }
 }
