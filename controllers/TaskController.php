@@ -24,6 +24,13 @@ class TaskController extends Controller
         $dataProvider = new ActiveDataProvider([
           'query'=> $query,
         ]);
+
+        //кэширование запроса
+        \Yii::$app->db->cache(function() use ($dataProvider) {
+            return $dataProvider->prepare();
+        });
+
+
         return $this->render(
           'index',
           [
