@@ -15,10 +15,14 @@ use yii\web\NotFoundHttpException;
 
 class TaskController extends Controller
 {
-    public function actionIndex()
+    public function actionIndex($month = 0)
     {
+        $query = ($month > 0 and $month <= 12) ?
+            Task::find()->where("MONTH(created_at)=$month") :
+            Task::find();
+//        var_dump($query); exit;
         $dataProvider = new ActiveDataProvider([
-          'query'=> Task::find(),
+          'query'=> $query,
         ]);
         return $this->render(
           'index',
