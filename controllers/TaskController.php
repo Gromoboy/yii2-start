@@ -68,12 +68,13 @@ class TaskController extends Controller
     }
 
     public function actionSave($id) {
-        if (($taskRec = Task::findOne($id))=== null) {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+        if ($taskRec = Task::findOne($id) and
+            $taskRec->load(\Yii::$app->request->post()) and
+            $taskRec->save())
+        {
+            \Yii::$app->session->setFlash('success', "Изменения сохранены");
+        } else \Yii::$app->session->setFlash('error', 'Ну удалось сохранить изменения');
 
-        if ($taskRec->load(\Yii::$app->request->post()) and $taskRec->save()) {
-            return $this->redirect(['full', 'id' => $taskRec->id]);
-        }
+        return $this->redirect(\Yii::$app->request->referrer);
     }
 }

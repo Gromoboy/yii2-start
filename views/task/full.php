@@ -6,7 +6,7 @@ use yii\helpers\Html;
 ?>
 <div class="task-edit">
     <div class="task-main">
-        <?php $form = ActiveForm::begin(['action' => \yii\helpers\Url::to(['task/save', ''])]); ?>
+        <?php $form = ActiveForm::begin(['action' => \yii\helpers\Url::to(['task/save', 'id' => $task->id])]); ?>
         <?= $form->field($task, 'name')->textInput(); ?>
         <div class="row">
             <div class="col-lg-4">
