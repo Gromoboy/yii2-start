@@ -8,7 +8,7 @@
 
 namespace app\controllers;
 
-use app\models\tables\{Task, TaskStatuses, Users};
+use app\models\tables\{Task, TaskAttachments, TaskComments, TaskStatuses, Users};
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -51,6 +51,9 @@ class TaskController extends Controller
                 'task' => $taskRecord,
                 'usersList' => Users::getUsersList(),
                 'statusesList' => TaskStatuses::getList(),
+                'taskCommentForm' => new TaskComments(),
+                'cur_user_id' => \Yii::$app->user->id,
+                'taskAttachmentForm' => new TaskAttachments(),
             ]
         );
     }
@@ -76,5 +79,18 @@ class TaskController extends Controller
         } else \Yii::$app->session->setFlash('error', 'Ну удалось сохранить изменения');
 
         return $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionAddComment() {
+        $post =\Yii::$app->request->post();
+//        var_dump($post);exit;
+        $newTaskComment = new TaskComments();
+
+        if($newTaskComment->load($post) and $newTaskComment->save()) {
+            \Yii::$app->session->setFlash('success', "Комментарий добавлен");
+        } else
+            \Yii::$app->session->setFlash('error', 'Нe удалось добавить комментарий');
+
+        $this->redirect(\Yii::$app->request->referrer);
     }
 }

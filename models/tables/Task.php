@@ -21,6 +21,8 @@ use yii\helpers\ArrayHelper;
  *
  * @property Users $creator
  * @property Users $responsable
+ * @property TaskComments[] $comments
+ * @property TaskAttachments[] $attachments
  */
 class Task extends \yii\db\ActiveRecord
 {
@@ -98,6 +100,13 @@ class Task extends \yii\db\ActiveRecord
         return $this->hasOne(TaskStatuses::class, ['id' => 'status_id']);
     }
 
+    public function getComments() {
+        return $this->hasMany(TaskComments::class, ['task_id' => 'id']);
+    }
+    public function getAttachments() {
+        return $this->hasMany(TaskAttachments::class, ['task_id' =>'id']);
+    }
+
     public static function getList() {
         return ArrayHelper::map(
             static::find()
@@ -107,4 +116,5 @@ class Task extends \yii\db\ActiveRecord
             ->all(), 'id', 'name'
         );
     }
+
 }

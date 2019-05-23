@@ -1,12 +1,19 @@
 <?php
 
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
-
+/**
+ * @var \app\models\Task $task
+ * @var array $statusesList
+ * @var array $usersList
+ * @var \app\models\tables\TaskComments $taskCommentForm
+ * @var integer $cur_user_id
+ */
 ?>
 <div class="task-edit">
     <div class="task-main">
-        <?php $form = ActiveForm::begin(['action' => \yii\helpers\Url::to(['task/save', 'id' => $task->id])]); ?>
+        <?php $form = ActiveForm::begin(['action' => Url::to(['task/save', 'id' => $task->id])]); ?>
         <?= $form->field($task, 'name')->textInput(); ?>
         <div class="row">
             <div class="col-lg-4">
@@ -25,4 +32,35 @@ use yii\helpers\Html;
         <?php ActiveForm::end(); ?>
     </div>
 </div>
+<div class="attachments">
+    <h3>Вложения</h3>
+    <hr>
+    <div class="attachments-history">
+        <? foreach ($task->attachments as $file):?>
+            <a href="/img/tasks/<?= $file->path ?>">
 
+               <img src="/img/tasks/small/<?= $file->path ?>">
+            </a>
+        <? endforeach; ?>
+    </div>
+</div>
+
+<div class="comments">
+    <h3>Комметарии</h3>
+    <?php $form = ActiveForm::begin(['action' => Url::to(['task/add-comment'])]); ?>
+
+        <?=$form->field($taskCommentForm, 'user_id')->hiddenInput(['value' => $cur_user_id])->label(false);?>
+        <?=$form->field($taskCommentForm, 'task_id')->hiddenInput(['value' => $task->id])->label(false);?>
+        <?=$form->field($taskCommentForm, 'content')->textInput() ?>
+        <?=Html::submitButton("Добавить", ['class' => 'btn btn-default'])?>
+    <?php ActiveForm::end(); ?>
+    <hr>
+    <div class="comments-history">
+        <? foreach ($task->comments as $comment):?>
+            <p class="comment">
+                <strong> <?=$comment->author->username?> </strong>
+                <?=$comment->content?>
+            </p>
+        <? endforeach; ?>
+    </div>
+</div>
