@@ -8,6 +8,7 @@ use yii\helpers\Html;
  * @var array $statusesList
  * @var array $usersList
  * @var \app\models\tables\TaskComments $taskCommentForm
+ * @var \app\models\tables\TaskAttachments $taskAttachmentsForm
  * @var integer $cur_user_id
  */
 ?>
@@ -34,6 +35,15 @@ use yii\helpers\Html;
 </div>
 <div class="attachments">
     <h3>Вложения</h3>
+    <?php $form = ActiveForm::begin([
+            'action' => Url::to(['task/add-attachment']),
+            'options' => ['class'=> 'form-inline'], // class для оформления
+    ]); ?>
+        <!-- сохраняем ID задачи для использования в форме  -->
+        <?= $form->field($taskAttachmentsForm, 'task_id')->hiddenInput(['value'=> $task->id])->label(false) ?>
+        <?= $form->field($taskAttachmentsForm, 'attachment')->fileInput() ?>
+        <?= Html::submitButton('Добавить картинку', ['class'=> 'btn btn-default']) ?>
+    <?php ActiveForm::end(); ?>
     <hr>
     <div class="attachments-history">
         <? foreach ($task->attachments as $file):?>

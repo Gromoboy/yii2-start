@@ -9,6 +9,7 @@
 namespace app\controllers;
 
 use app\models\tables\{Task, TaskAttachments, TaskComments, TaskStatuses, Users};
+use app\models\forms\TaskAttachmentsAddForm;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -53,7 +54,7 @@ class TaskController extends Controller
                 'statusesList' => TaskStatuses::getList(),
                 'taskCommentForm' => new TaskComments(),
                 'cur_user_id' => \Yii::$app->user->id,
-                'taskAttachmentForm' => new TaskAttachments(),
+                'taskAttachmentsForm' => new TaskAttachmentsAddForm(),
             ]
         );
     }
@@ -92,5 +93,9 @@ class TaskController extends Controller
             \Yii::$app->session->setFlash('error', 'Нe удалось добавить комментарий');
 
         $this->redirect(\Yii::$app->request->referrer);
+    }
+
+    public function actionAddAttachment() {
+
     }
 }
