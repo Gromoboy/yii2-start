@@ -23,6 +23,14 @@ class TaskAttachmentsAddForm extends \yii\base\Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+          'attachment' => \Yii::t('app','attachment'),
+        ];
+    }
+
+
     public function save()
     {
         if (!$this->validate()) {

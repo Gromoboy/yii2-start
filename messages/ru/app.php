@@ -1,4 +1,20 @@
 <?php
 return [
-  'task_name' => 'Название задачи',
+    'task_name' => 'Название задачи',
+    'task_status' => 'Статус',
+    'task_responsable' => 'Ответственный',
+    'task_deadline' => 'Дэдлайн',
+    'content' => 'Содержание',
+    'add' => 'Добавить',
+    'save' => 'Сохранить',
+    'attachment' => 'Вложить',
+    'attachments' => 'Вложения',
+    'comments' => 'Комментарии',
+    'Tasks' => 'Задачи',
+    'About' => 'О нас',
+    'Contact' => 'Контакты',
+    'Login' => 'Вход',
+    'Logout' => 'Выход',
+    'lang' => 'Язык',
+    'Home' => 'На Главную',
 ];

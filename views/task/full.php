@@ -28,21 +28,21 @@ use yii\helpers\Html;
             </div>
         </div>
         <div class="form-group">
-            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton(Yii::t('app', 'save'), ['class' => 'btn btn-success']) ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>
 </div>
 <div class="attachments">
-    <h3>Вложения</h3>
+    <h3><?= Yii::t('app', 'attachments')?></h3>
     <?php $form = ActiveForm::begin([
             'action' => Url::to(['task/add-attachment']),
-            'options' => ['class'=> 'form-inline'], // class для оформления
+            'options' => ['class'=> 'form-inline',], // class для оформления
     ]); ?>
         <!-- сохраняем ID задачи для использования в форме  -->
         <?= $form->field($taskAttachmentsForm, 'taskId')->hiddenInput(['value'=> $task->id])->label(false) ?>
-        <?= $form->field($taskAttachmentsForm, 'attachment')->fileInput() ?>
-        <?= Html::submitButton('Добавить картинку', ['class'=> 'btn btn-default']) ?>
+        <?= $form->field($taskAttachmentsForm, 'attachment')->fileInput(['btnTag'=>'en']) ?>
+        <?= Html::submitButton(Yii::t('app', 'add'), ['class'=> 'btn btn-default']) ?>
     <?php ActiveForm::end(); ?>
     <hr>
     <div class="attachments-history">
@@ -56,13 +56,13 @@ use yii\helpers\Html;
 </div>
 
 <div class="comments">
-    <h3>Комметарии</h3>
+    <h3><?= Yii::t('app', 'comments')?></h3>
     <?php $form = ActiveForm::begin(['action' => Url::to(['task/add-comment'])]); ?>
 
         <?=$form->field($taskCommentForm, 'user_id')->hiddenInput(['value' => $cur_user_id])->label(false);?>
         <?=$form->field($taskCommentForm, 'task_id')->hiddenInput(['value' => $task->id])->label(false);?>
         <?=$form->field($taskCommentForm, 'content')->textInput() ?>
-        <?=Html::submitButton("Добавить", ['class' => 'btn btn-default'])?>
+        <?=Html::submitButton(Yii::t('app', 'add'), ['class' => 'btn btn-default'])?>
     <?php ActiveForm::end(); ?>
     <hr>
     <div class="comments-history">

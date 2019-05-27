@@ -73,9 +73,9 @@ class Task extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'task_name'),
             'description' => 'Description',
             'creator_id' => 'Creator ID',
-            'responsable_id' => 'Responsable ID',
-            'deadline' => 'Deadline',
-            'status_id' => 'Status ID',
+            'responsable_id' => Yii::t('app', 'task_responsable'),
+            'deadline' => Yii::t('app', 'task_deadline'),
+            'status_id' => Yii::t('app', 'task_status'),
         ];
     }
 

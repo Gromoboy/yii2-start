@@ -45,29 +45,29 @@ AppAsset::register($this);
             'items' =>
             [
                 [
-                    'label' => 'lang',
+                    'label' => Yii::t('app','lang'),
                     'items' => [
                         ['label' => 'ru', 'url' => ['site/lang', 'lang' => 'ru']],
                         ['label' => 'en', 'url' => ['site/lang', 'lang' => 'en']],
                     ],
                 ],
 
-                ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'Tasks', 'url' => '/tasks'],
-                ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
-                Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-                ) : (
-                    '<li>'
-                    .Html::beginForm(['/site/logout'], 'post')
-                    .Html::submitButton(
-                        'Logout ('.Yii::$app->user->identity->username.')',
-                        ['class' => 'btn btn-link logout']
-                    )
-                    .Html::endForm()
-                    .'</li>'
-                ),
+                ['label' => Yii::t('app','Home'), 'url' => ['/site/index']],
+                ['label' => Yii::t('app', 'Tasks'), 'url' => '/tasks'],
+                ['label' => Yii::t('app','About'), 'url' => ['/site/about']],
+                ['label' => Yii::t('app','Contact'), 'url' => ['/site/contact']],
+                Yii::$app->user->isGuest ?
+                    (['label' => Yii::t('app','Login'), 'url' => ['/site/login']]) :
+                    (
+                        '<li>'
+                        .Html::beginForm(['/site/logout'], 'post')
+                        .Html::submitButton(
+                            Yii::t('app','Logout') . '('.Yii::$app->user->identity->username.')',
+                            ['class' => 'btn btn-link logout']
+                        )
+                        .Html::endForm()
+                        .'</li>'
+                    ),
             ],
         ]
     );
