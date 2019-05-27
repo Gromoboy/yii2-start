@@ -18,6 +18,14 @@ class Bootstrap extends Component implements BootstrapInterface
     public function bootstrap($app)
     {
         $this->attachEventHandlers();
+        $this->setLanguage();
+    }
+
+    public function setLanguage()
+    {
+        $lang = \Yii::$app->session->get('lang');
+        if (!$lang) return;
+        \Yii::$app->language = $lang;
     }
 
     private function attachEventHandlers()

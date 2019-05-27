@@ -70,7 +70,7 @@ class Task extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => Yii::t('app', 'task_name'),
             'description' => 'Description',
             'creator_id' => 'Creator ID',
             'responsable_id' => 'Responsable ID',
