@@ -13,6 +13,7 @@ use app\models\forms\TaskAttachmentsAddForm;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 class TaskController extends Controller
 {
@@ -22,21 +23,25 @@ class TaskController extends Controller
             Task::find()->where("MONTH(created_at)=$month") :
             Task::find();
 //        var_dump($query); exit;
-        $dataProvider = new ActiveDataProvider([
-          'query'=> $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(
+            [
+                'query' => $query,
+            ]
+        );
 
         //кэширование запроса
-        \Yii::$app->db->cache(function() use ($dataProvider) {
-            return $dataProvider->prepare();
-        });
+        \Yii::$app->db->cache(
+            function () use ($dataProvider) {
+                return $dataProvider->prepare();
+            }
+        );
 
 
         return $this->render(
-          'index',
-          [
-            'dataProvider' => $dataProvider,
-          ]
+            'index',
+            [
+                'dataProvider' => $dataProvider,
+            ]
         );
         // проверка url:   http://yii2.uni.loc/?r=task/
 //    var_dump($model->validate());
@@ -44,8 +49,11 @@ class TaskController extends Controller
 //    var_dump($model->toArray()); exit;
 
     }
-    public function actionOne($id) {
+
+    public function actionOne($id)
+    {
         $taskRecord = Task::findOne($id);
+
         return $this->render(
             'full',
             [
@@ -58,44 +66,60 @@ class TaskController extends Controller
             ]
         );
     }
+
 //  public $layout = false;
     public function actionHello()
     {
         return $this->render(
-          'hello',
-          [
-            'title' => 'Домашняя работа №1',
-            'content' => 'Привет из фреймворка Йии 2',
-          ]
+            'hello',
+            [
+                'title' => 'Домашняя работа №1',
+                'content' => 'Привет из фреймворка Йии 2',
+            ]
         );
 
     }
 
-    public function actionSave($id) {
+    public function actionSave($id)
+    {
         if ($taskRec = Task::findOne($id) and
             $taskRec->load(\Yii::$app->request->post()) and
-            $taskRec->save())
-        {
+            $taskRec->save()) {
             \Yii::$app->session->setFlash('success', "Изменения сохранены");
-        } else \Yii::$app->session->setFlash('error', 'Ну удалось сохранить изменения');
+        } else {
+            \Yii::$app->session->setFlash('error', 'Ну удалось сохранить изменения');
+        }
 
         return $this->redirect(\Yii::$app->request->referrer);
     }
 
-    public function actionAddComment() {
-        $post =\Yii::$app->request->post();
+    public function actionAddComment()
+    {
+        $sendedComment = \Yii::$app->request->post();
 //        var_dump($post);exit;
-        $newTaskComment = new TaskComments();
+        $newTaskCommentRec = new TaskComments();
 
-        if($newTaskComment->load($post) and $newTaskComment->save()) {
+        if ($newTaskCommentRec->load($sendedComment) and $newTaskCommentRec->save()) {
             \Yii::$app->session->setFlash('success', "Комментарий добавлен");
-        } else
+        } else {
             \Yii::$app->session->setFlash('error', 'Нe удалось добавить комментарий');
+        }
 
         $this->redirect(\Yii::$app->request->referrer);
     }
 
-    public function actionAddAttachment() {
+    public function actionAddAttachment()
+    {
+        $newAttachmentInfo = new TaskAttachmentsAddForm();
+        $newAttachmentInfo->load(\Yii::$app->request->post());
+        $newAttachmentInfo->attachment = UploadedFile::getInstance($newAttachmentInfo, 'attachment');
 
+        if ($newAttachmentInfo->save()) {
+           \Yii::$app->session->setFlash('success', 'Файл добавлен') ;
+        } else {
+            \Yii::$app->session->setFlash('error', 'Ну удается добавить файл');
+        }
+
+        $this->redirect(\Yii::$app->request->referrer);
     }
 }

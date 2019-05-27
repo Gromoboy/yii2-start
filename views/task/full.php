@@ -40,7 +40,7 @@ use yii\helpers\Html;
             'options' => ['class'=> 'form-inline'], // class для оформления
     ]); ?>
         <!-- сохраняем ID задачи для использования в форме  -->
-        <?= $form->field($taskAttachmentsForm, 'task_id')->hiddenInput(['value'=> $task->id])->label(false) ?>
+        <?= $form->field($taskAttachmentsForm, 'taskId')->hiddenInput(['value'=> $task->id])->label(false) ?>
         <?= $form->field($taskAttachmentsForm, 'attachment')->fileInput() ?>
         <?= Html::submitButton('Добавить картинку', ['class'=> 'btn btn-default']) ?>
     <?php ActiveForm::end(); ?>
