@@ -58,14 +58,14 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'tasks' => 'task/index',
+                'task/<id>' => 'task/one',
             ],
         ],
-//        */
     ],
     'params' => $params,
 ];

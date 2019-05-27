@@ -53,7 +53,7 @@ AppAsset::register($this);
                 ],
 
                 ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'Tasks', 'url' => '/?r=task/index'],
+                ['label' => 'Tasks', 'url' => '/tasks'],
                 ['label' => 'About', 'url' => ['/site/about']],
                 ['label' => 'Contact', 'url' => ['/site/contact']],
                 Yii::$app->user->isGuest ? (
