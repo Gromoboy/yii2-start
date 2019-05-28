@@ -45,7 +45,7 @@ class TaskComments extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'content' => 'Content',
+            'content' => Yii::t('app','Content'),
             'task_id' => 'Task ID',
             'user_id' => 'User ID',
         ];
