@@ -123,6 +123,8 @@ class Task extends \yii\db\ActiveRecord
         $sqlDeadlineDayLeft = 'DATEDIFF(NOW(), task.deadline)';
         return static::find()
             ->where("$sqlDeadlineDayLeft <= $days ")
+            // подцепка таблицы users сразу, без последующих обращени к бд
+            ->with('responsable')
             ->all();
     }
 
