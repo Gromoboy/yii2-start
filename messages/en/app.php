@@ -10,4 +10,5 @@ return [
     'save' => 'Save',
     'attachments' => 'Attachments',
     'comments' => 'Comments',
+    'deadline_warning' => 'deadline will be expired less then 24 hours',
 ];

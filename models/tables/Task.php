@@ -113,8 +113,17 @@ class Task extends \yii\db\ActiveRecord
             ->select(['id', 'name'])
             ->asArray()
             ->indexBy('id')
-            ->all(), 'id', 'name'
+            ->all(),
+            'id', 'name'
         );
+    }
+
+    public static function getDeadlineIn($days)
+    {
+        $sqlDeadlineDayLeft = 'DATEDIFF(NOW(), task.deadline)';
+        return static::find()
+            ->where("$sqlDeadlineDayLeft <= $days ")
+            ->all();
     }
 
 }
