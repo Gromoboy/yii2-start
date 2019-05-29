@@ -11,12 +11,30 @@ namespace app\controllers;
 use app\models\tables\{Task, TaskAttachments, TaskComments, TaskStatuses, Users};
 use app\models\forms\TaskAttachmentsAddForm;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 class TaskController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+//                'only' => ['index'],
+                'rules' => [
+                    [
+//                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ]
+                ],
+            ],
+        ];
+    }
+
     public function actionIndex($month = 0)
     {
         $query = ($month > 0 and $month <= 12) ?
@@ -115,7 +133,7 @@ class TaskController extends Controller
         $newAttachmentInfo->attachment = UploadedFile::getInstance($newAttachmentInfo, 'attachment');
 
         if ($newAttachmentInfo->save()) {
-           \Yii::$app->session->setFlash('success', 'Файл добавлен') ;
+            \Yii::$app->session->setFlash('success', 'Файл добавлен');
         } else {
             \Yii::$app->session->setFlash('error', 'Ну удается добавить файл');
         }

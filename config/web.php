@@ -17,6 +17,9 @@ $config = [
         'bootstrap' => [
           'class' => '\app\components\Bootstrap',
         ],
+        'authManager' => [
+            'class' => \yii\rbac\DbManager::class,
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'lExmkG45e2yrf17Uh1kSr2-gJHHclesl',
