@@ -23,11 +23,11 @@ class m190529_023317_rbac_init extends Migration
         $am->add($permitionTaskUpdate);
         $am->add($permitionTaskDelete);
 
-        // создание ролей
+        // создание ролей и добавление в базу
         $admin = $am->createRole('admin');
         $moder = $am->createRole('moder');
 
-        // добавление в базу
+        //
         $am->add($admin);
         $am->add($moder);
 

@@ -57,7 +57,7 @@ AppAsset::register($this);
                     ['label' => Yii::t('app', 'About'), 'url' => ['/site/about']],
                     ['label' => Yii::t('app', 'Contact'), 'url' => ['/site/contact']],
                     [
-                        'visible' => Yii::$app->user->can('TaskUpdate'),
+                        'visible' => Yii::$app->user->can('AuthManage'),
                         'label' => Yii::t('app', 'Users'),
                         'items' => [
                             ['label' => Yii::t('app', 'Auth Assignments'), 'url' => ['/auth-assignment']],
