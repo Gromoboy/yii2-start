@@ -20,4 +20,13 @@ return [
     'deadline_warning' => 'До наступления дэдлайна осталось менее суток',
     'Content' => 'Содержание',
     'Delete task' => 'Удалить Таск',
+    'Users' => 'Пользователи',
+    'Auth Assignments' => 'Связывание ролей с пользователем',
+    'Auth Item Child' => 'Разграничение ролей',
+    'Auth Item Children' => 'Разграничение ролей',
+    'Auth Items' => 'Создание ролей и операций',
+    'Create Auth Assignment' => 'Создать связь с пользователем ',
+    'Create Auth Item' => 'Добавить пункт',
+    'Create Auth Item Child' => 'Создать правило доступа'
+
 ];
