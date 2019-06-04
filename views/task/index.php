@@ -1,4 +1,7 @@
 <?php
+
+\app\assets\TaskOneAsset::register($this);
+
 echo \yii\widgets\ListView::widget([
   'dataProvider'=> $dataProvider,
     'itemView' => function($model) {
