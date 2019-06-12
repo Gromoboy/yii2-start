@@ -16,6 +16,8 @@ use Yii;
  *
  * @property Task[] $tasks
  * @property Task[] $tasks0
+ *
+ * @property Users $responsable
  */
 class Users extends \yii\db\ActiveRecord
 {
@@ -33,8 +35,9 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password'], 'required'],
-            [['username', 'password', 'authKey', 'accessToken', 'email'], 'string', 'max' => 255],
+          [['username', 'password'], 'required'],
+          [['username', 'password', 'authKey', 'accessToken', 'email'], 'string', 'max' => 255],
+          [['email'], 'email'],
         ];
     }
 
@@ -44,19 +47,19 @@ class Users extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'username' => 'Username',
-            'password' => 'Password',
-            'authKey' => 'Auth Key',
-            'accessToken' => 'Access Token',
-            'email' => 'Email',
+          'id' => 'ID',
+          'username' => 'Имя пользователя',
+          'password' => 'Пароль',
+          'authKey' => 'Auth Key',
+          'accessToken' => 'Access Token',
+          'email' => 'Email',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks()
+    public function getCreator()
     {
         return $this->hasMany(Task::className(), ['creator_id' => 'id']);
     }
@@ -64,8 +67,20 @@ class Users extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks0()
+    public function getResponsable()
     {
         return $this->hasMany(Task::className(), ['responsable_id' => 'id']);
     }
+
+    public static function getUsersList() {
+        return static::find()
+                        ->select(['username'])
+                        ->indexBy('id')
+                        ->column();
+    }
+//    public function afterSave($insert, $changedAttributes) {
+//        parent::afterSave($insert, $changedAttributes);
+//
+//    }
 }
+

@@ -3,6 +3,10 @@
 namespace app\models\tables;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "task".
@@ -17,6 +21,8 @@ use Yii;
  *
  * @property Users $creator
  * @property Users $responsable
+ * @property TaskComments[] $comments
+ * @property TaskAttachments[] $attachments
  */
 class Task extends \yii\db\ActiveRecord
 {
@@ -26,6 +32,20 @@ class Task extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'task';
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value' => new Expression('NOW()'),
+            ]
+        ];
     }
 
     /**
@@ -50,12 +70,12 @@ class Task extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => Yii::t('app', 'task_name'),
             'description' => 'Description',
             'creator_id' => 'Creator ID',
-            'responsable_id' => 'Responsable ID',
-            'deadline' => 'Deadline',
-            'status_id' => 'Status ID',
+            'responsable_id' => Yii::t('app', 'task_responsable'),
+            'deadline' => Yii::t('app', 'task_deadline'),
+            'status_id' => Yii::t('app', 'task_status'),
         ];
     }
 
@@ -74,4 +94,38 @@ class Task extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Users::className(), ['id' => 'responsable_id']);
     }
+
+    public function getStatus()
+    {
+        return $this->hasOne(TaskStatuses::class, ['id' => 'status_id']);
+    }
+
+    public function getComments() {
+        return $this->hasMany(TaskComments::class, ['task_id' => 'id']);
+    }
+    public function getAttachments() {
+        return $this->hasMany(TaskAttachments::class, ['task_id' =>'id']);
+    }
+
+    public static function getList() {
+        return ArrayHelper::map(
+            static::find()
+            ->select(['id', 'name'])
+            ->asArray()
+            ->indexBy('id')
+            ->all(),
+            'id', 'name'
+        );
+    }
+
+    public static function getDeadlineIn($days)
+    {
+        $sqlDeadlineDayLeft = 'DATEDIFF(NOW(), task.deadline)';
+        return static::find()
+            ->where("$sqlDeadlineDayLeft <= $days ")
+            // подцепка таблицы users сразу, без последующих обращени к бд
+            ->with('responsable')
+            ->all();
+    }
+
 }

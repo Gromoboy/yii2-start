@@ -4,14 +4,22 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
+    'language' => 'en-US',
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log','bootstrap'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        '@img' => '@app/web/img/',
     ],
     'components' => [
+        'bootstrap' => [
+          'class' => '\app\components\Bootstrap',
+        ],
+        'authManager' => [
+            'class' => \yii\rbac\DbManager::class,
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'lExmkG45e2yrf17Uh1kSr2-gJHHclesl',
@@ -19,6 +27,16 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+
+        'r_cache' => [
+            'class' => 'yii\redis\Cache',
+            'redis' => [
+                'hostname' => 'localhost',
+                'port' => 6379,
+                'database' => 0,
+            ]
+        ],
+
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
@@ -43,14 +61,14 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'tasks' => 'task/index',
+                'task/<id>' => 'task/one',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

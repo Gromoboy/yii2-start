@@ -1,0 +1,32 @@
+<?php
+return [
+    'task_name' => 'Название задачи',
+    'task_status' => 'Статус',
+    'task_responsable' => 'Ответственный',
+    'task_deadline' => 'Дэдлайн',
+    'content' => 'Содержание',
+    'add' => 'Добавить',
+    'save' => 'Сохранить',
+    'attachment' => 'Вложить',
+    'attachments' => 'Вложения',
+    'comments' => 'Комментарии',
+    'Tasks' => 'Задачи',
+    'About' => 'О нас',
+    'Contact' => 'Контакты',
+    'Login' => 'Вход',
+    'Logout' => 'Выход',
+    'lang' => 'Язык',
+    'Home' => 'На Главную',
+    'deadline_warning' => 'До наступления дэдлайна осталось менее суток',
+    'Content' => 'Содержание',
+    'Delete task' => 'Удалить Таск',
+    'Users' => 'Пользователи',
+    'Auth Assignments' => 'Связывание ролей с пользователем',
+    'Auth Item Child' => 'Разграничение ролей',
+    'Auth Item Children' => 'Разграничение ролей',
+    'Auth Items' => 'Создание ролей и операций',
+    'Create Auth Assignment' => 'Создать связь с пользователем ',
+    'Create Auth Item' => 'Добавить пункт',
+    'Create Auth Item Child' => 'Создать правило доступа'
+
+];
